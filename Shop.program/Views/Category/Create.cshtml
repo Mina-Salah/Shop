@@ -1,0 +1,24 @@
+﻿@model Category
+@{
+    ViewBag.PageTitl = "Category";
+    ViewBag.Cardtitl = "Create category";
+}
+<form method="post">
+    <div class="form-group">
+        <label asp-for ="Name">Name</label>
+        <input asp-for="Name"  class="form-control" />
+        <span asp-validation-for="Name" class="text-danger" ></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+<a href="@Url.Action("Index")">Back to List</a>
+@section scripts {
+     <partial name="_ValidationScriptsPartial" />
+}

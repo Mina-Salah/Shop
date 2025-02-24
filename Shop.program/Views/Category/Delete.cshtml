@@ -1,0 +1,34 @@
+﻿@model Category
+
+@{
+    ViewBag.PageTitl = "Category";
+    ViewBag.Cardtitl = "Delete category";
+}
+
+<hr />
+<div class="row">
+<div class="col-md-4" >
+    <form asp-action="DeleteConfairm" method="post">
+        <input hidden asp-for="Id" />
+                <div asp-validation-summary="ModelOnly" class="table-responsive-xl" ></div>
+        <div class="form-group">
+            <label asp-for="Name">Name</label>
+            <input asp-for="Name" disabled class="form-control" />
+            <span asp-validation-for="Name"></span>
+        </div>
+        <div class="form-group">
+            <label for="Description">Description</label>
+            <textarea id="Description" name="Description" class="form-control">@Model.Description</textarea>
+            <span asp-validation-for="Description"></span>
+
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Delete" class=" btn btn-danger" />
+        </div>
+    </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to list</a>
+</div>
