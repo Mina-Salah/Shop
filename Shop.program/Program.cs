@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Shop.Program.Context;  // Add this to reference your DbContext
+using Shop.Data.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 

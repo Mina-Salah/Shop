@@ -1,11 +1,12 @@
 ﻿using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Shop.Data.Context;
 
 
 #nullable disable
 
-namespace Shop.program.Migrations
+namespace Shop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot

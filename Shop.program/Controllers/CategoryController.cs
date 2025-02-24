@@ -1,6 +1,6 @@
-﻿using Entity.Models;
-using Microsoft.AspNetCore.Mvc;
-using Shop.Date;
+﻿using Microsoft.AspNetCore.Mvc;
+using Shop.Data.Context;
+using Shop.Entities.Models;
 
 namespace Shop.Program.Controllers
 {
