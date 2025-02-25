@@ -10,7 +10,8 @@ namespace Shop.Data.Context
         { }
 
         // Define DbSet properties for your entities
-        public DbSet<Category> Categories { get; set; } // Another example
+        public DbSet<Category> Category { get; set; } // Another example
+        public DbSet<Product> products { get; set; } // Another example
 
         
     }

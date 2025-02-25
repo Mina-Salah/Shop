@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using shop.Data.Implementation;
 using Shop.Data.Context;
+using Shop.Entities.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,11 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("oneConnection"))
 );
+
+// Register UnitOfWork
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
 
 var app = builder.Build();
 
