@@ -10,6 +10,7 @@ namespace Shop.Entities.Interfaces
     {
         // Add repository properties here
         ICategoryRepository Categories { get; }
+        IProductRepository Products { get; }
 
         // Save changes to the database
         int Complet();

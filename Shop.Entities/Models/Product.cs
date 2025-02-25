@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,12 +11,13 @@ namespace Shop.Entities.Models
     public class Product
     {
        
-        public int id { get; set; }
+        public int Id { get; set; }
         [Required]
-        public string name { get; set; }
-        public string description { get; set; }
-        public string Img { get; set; } 
-        public decimal price { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        [ValidateNever]
+        public string? Img { get; set; } 
+        public decimal Price { get; set; }
        
         
         // relation 
