@@ -17,7 +17,9 @@ namespace Shop.Entities.ViewModel
 
         [Display(Name = "Category")]
         [ValidateNever]
-        public IEnumerable<SelectListItem> categorySelect { get; set; }
+        public IEnumerable<SelectListItem>? categorySelect { get; set; }
+
+       
     }
 
 }

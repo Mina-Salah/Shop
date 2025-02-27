@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "Products";
+}
+
+<h2>Products</h2>
+
+<!-- Button to Create New Product -->
+<a href="@Url.Action("Create")" class="btn btn-primary mb-3">Create New Product</a>
+
+<!-- Table -->
+<table id="productsTable" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Image</th>
+            <th>Actions</th> <!-- Column for Edit and Delete buttons -->
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Data will be loaded here via AJAX -->
+    </tbody>
+</table>
+
+<!-- Toastr Notification Partial View -->
+<partial name="_ToasterPartial" />
+
+@section scripts {
+    <!-- Add jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- Add DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css">
+    <!-- Add DataTables JS -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#productsTable').DataTable({
+                ajax: {
+                    url: "/Admin/Product/GetProducts", // URL to fetch data
+                    type: "GET",
+                    datatype: "json",
+                    error: function (xhr, error, thrown) {
+                        console.error("DataTables AJAX error:", error, thrown);
+                        alert("An error occurred while fetching data. Please try again.");
+                    }
+                },
+                columns: [
+                    { data: "name" }, // Product Name
+                    { data: "description" }, // Product Description
+                    { data: "price" }, // Product Price
+                    { data: "category" }, // Product Category
+                    {
+                        data: "image", // Product Image
+                        render: function (data) {
+                            return data ? `<img src="/${data}" alt="Product Image" style="max-width: 50px;" />` : '';
+                        }
+                    },
+                    {
+                        data: "id", // Actions (Edit and Delete buttons)
+                        render: function (data) {
+                            return `
+                                <a href="/Admin/Product/Edit/${data}" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="/Admin/Product/Delete/${data}" class="btn btn-danger btn-sm">Delete</a>
+                            `;
+                        }
+                    }
+                ],
+                paging: true, // Enable pagination
+                searching: true, // Enable search
+                ordering: true, // Enable sorting
+                info: true, // Show table information
+                autoWidth: false, // Disable auto width
+                responsive: true, // Enable responsive design
+                pageLength: 10 // Set default page length
+            });
+        });
+    </script>
+}

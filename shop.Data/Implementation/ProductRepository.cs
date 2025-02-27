@@ -28,7 +28,8 @@ namespace shop.Data.Implementation
                 productInDb.Name = product.Name;
                 productInDb.Description = product.Description;
                 productInDb.Price = product.Price;
-                productInDb.Img = product.Img;  
+                productInDb.Img = product.Img;
+                productInDb.CategoryId = product.CategoryId;  
             }
         }
     }

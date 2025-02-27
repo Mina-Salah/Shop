@@ -3,8 +3,9 @@ using Shop.Data.Context;
 using Shop.Entities.Interfaces;
 using Shop.Entities.Models;
 
-namespace Shop.Program.Controllers
+namespace Shop.program.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         //private readonly ApplicationDbContext _context;
@@ -31,9 +32,9 @@ namespace Shop.Program.Controllers
         {
             if (ModelState.IsValid)
             {
-               // _context.Categories.Add(category);
-               // _context.SaveChanges();
-               _unitOfWork.Categories.Add(category);
+                // _context.Categories.Add(category);
+                // _context.SaveChanges();
+                _unitOfWork.Categories.Add(category);
                 _unitOfWork.Complet();
                 TempData["message"] = "Category created successfully!";
                 return RedirectToAction("Index");
@@ -46,12 +47,12 @@ namespace Shop.Program.Controllers
         [HttpGet]
         public IActionResult Edit(int? id)
         {
-            if (id == null | id == 0) 
-            { 
+            if (id == null | id == 0)
+            {
                 return NotFound();
             }
-            var category = _unitOfWork.Categories.GetFirstOrDefault(x=>x.Id==id);
-            return View(category);  
+            var category = _unitOfWork.Categories.GetFirstOrDefault(x => x.Id == id);
+            return View(category);
         }
 
         [HttpPost]
@@ -60,9 +61,9 @@ namespace Shop.Program.Controllers
         {
             if (ModelState.IsValid)
             {
-               // _context.Categories.Update(category);
-               // _context.SaveChanges();
-               _unitOfWork.Categories.Update(category);
+                // _context.Categories.Update(category);
+                // _context.SaveChanges();
+                _unitOfWork.Categories.Update(category);
                 _unitOfWork.Complet();
                 TempData["Update"] = "Category Update successfully!";
                 return RedirectToAction("Index");
@@ -95,9 +96,9 @@ namespace Shop.Program.Controllers
                 return NotFound();
             }
 
-           // _context.Categories.Remove(category);
-           // _context.SaveChanges();
-           _unitOfWork.Categories.Remove(category);
+            // _context.Categories.Remove(category);
+            // _context.SaveChanges();
+            _unitOfWork.Categories.Remove(category);
             _unitOfWork.Complet();
             TempData["Deleted"] = "Category Deleted successfully!";
             return RedirectToAction("Index");
