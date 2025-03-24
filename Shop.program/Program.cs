@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using shop.Data.Implementation;
 using Shop.Data.Context;
 using Shop.Entities.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,8 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("oneConnection"))
 );
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
 
 // Register UnitOfWork
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -37,14 +40,16 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.MapRazorPages();
+
 
 app.MapControllerRoute(
-    name: "default",
+    name: "Admin",
     pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}");
-
-
 
 app.MapControllerRoute(
     name: "Customer",
-    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}"); 
+
+
 app.Run();
