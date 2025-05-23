@@ -8,7 +8,7 @@
 <a href="@Url.Action("Create")" class="btn btn-primary mb-3">Create New Product</a>
 
 <!-- Table -->
-<table id="productsTable" class="table table-bordered table-striped">
+<table id="productsTable" class="table table-bordered table-striped" style="width:100%">
     <thead>
         <tr>
             <th>Name</th>
@@ -16,11 +16,11 @@
             <th>Price</th>
             <th>Category</th>
             <th>Image</th>
-            <th>Actions</th> <!-- Column for Edit and Delete buttons -->
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        <!-- Data will be loaded here via AJAX -->
+        <!-- Data will be loaded via AJAX -->
     </tbody>
 </table>
 
@@ -36,10 +36,14 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
 
     <script>
+        // Declare dataTable variable globally
+        var dataTable;
+
         $(document).ready(function () {
-            $('#productsTable').DataTable({
+            // Initialize DataTable
+            dataTable = $('#productsTable').DataTable({
                 ajax: {
-                    url: "/Admin/Product/GetProducts", // URL to fetch data
+                    url: "/Admin/Product/GetProducts",
                     type: "GET",
                     datatype: "json",
                     error: function (xhr, error, thrown) {
@@ -48,18 +52,23 @@
                     }
                 },
                 columns: [
-                    { data: "name" }, // Product Name
-                    { data: "description" }, // Product Description
-                    { data: "price" }, // Product Price
-                    { data: "category" }, // Product Category
+                    { data: "name" },
+                    { data: "description" },
                     {
-                        data: "image", // Product Image
+                        data: "price",
+                        render: function(data) {
+                            return '$' + parseFloat(data).toFixed(2);
+                        }
+                    },
+                    { data: "category" },
+                    {
+                        data: "image",
                         render: function (data) {
                             return data ? `<img src="/${data}" alt="Product Image" style="max-width: 50px;" />` : '';
                         }
                     },
                     {
-                        data: "id", // Actions (Edit and Delete buttons)
+                        data: "id",
                         render: function (data) {
                             return `
                                 <a href="/Admin/Product/Edit/${data}" class="btn btn-warning btn-sm">Edit</a>
@@ -68,14 +77,19 @@
                         }
                     }
                 ],
-                paging: true, // Enable pagination
-                searching: true, // Enable search
-                ordering: true, // Enable sorting
-                info: true, // Show table information
-                autoWidth: false, // Disable auto width
-                responsive: true, // Enable responsive design
-                pageLength: 10 // Set default page length
+                paging: true,
+                searching: true,
+                ordering: true,
+                info: true,
+                autoWidth: false,
+                responsive: true,
+                pageLength: 10
             });
         });
+
+        // Function to reload DataTable
+        function reloadDataTable() {
+            dataTable.ajax.reload(null, false); // false means don't reset paging
+        }
     </script>
 }
